@@ -1,10 +1,9 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'dart:html' as html; // للـ Web فقط
 import '../models/case.dart';
 
 // ترجمات الأسماء
@@ -19,8 +18,7 @@ const _fbsMap = {0: 'False', 1: 'True'};
 const _restecgMap = {0: 'Normal', 1: 'ST-T Abnormality', 2: 'LV Hypertrophy'};
 const _exangMap = {0: 'No', 1: 'Yes'};
 const _slopeMap = {0: 'Upsloping', 1: 'Flat', 2: 'Downsloping'};
-const _thalMap = {1: 'Normal', 2: 'Fixed Defect', 3: 'Reversible Defect' // 0 غير موجود
-};
+const _thalMap = {1: 'Normal', 2: 'Fixed Defect', 3: 'Reversible Defect'};
 
 Future<void> generateCaseReportPDF(
     BuildContext context, HeartCase heartCase) async {
@@ -55,7 +53,7 @@ Future<void> generateCaseReportPDF(
       case 'exang': return _exangMap[val] ?? val.toString();
       case 'slope': return _slopeMap[val] ?? val.toString();
       case 'thal': return _thalMap[val] ?? val.toString();
-      default: return val.toString(); // الأرقام كما هي
+      default: return val.toString();
     }
   }
 
@@ -143,25 +141,13 @@ Future<void> generateCaseReportPDF(
   try {
     final pdfBytes = await pdf.save();
 
-    if (kIsWeb) {
-      final blob = html.Blob([pdfBytes], 'application/pdf');
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      final anchor = html.AnchorElement(href: url)
-        ..setAttribute("download", "${heartCase.name}_report.pdf")
-        ..click();
-      html.Url.revokeObjectUrl(url);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("PDF downloaded in browser")),
-      );
-    } else {
-      final dir = await getApplicationDocumentsDirectory();
-      final file = File("${dir.path}/${heartCase.name}_report.pdf");
-      await file.writeAsBytes(pdfBytes);
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File("${dir.path}/${heartCase.name}_report.pdf");
+    await file.writeAsBytes(pdfBytes, flush: true);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("PDF Saved: ${file.path}")),
-      );
-    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("PDF saved: ${file.path}")),
+    );
   } catch (e) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Error: $e")),
