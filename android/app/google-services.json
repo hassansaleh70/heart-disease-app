@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608822184738",
+    "project_id": "fir-config-a32ad",
+    "storage_bucket": "fir-config-a32ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608822184738:android:27397dc929e77d9061737b",
+        "android_client_info": {
+          "package_name": "com.example.hamad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9ap5e_Ca3mKKzdKOF846lwHDC_BtMGag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

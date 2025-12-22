@@ -1,0 +1,52 @@
+name: cardio_sense
+description: Heart-Disease predictor with Firebase Auth & OTP
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  permission_handler: ^11.0.1
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
+  cloud_firestore: ^6.1.0
+  path_provider: ^2.1.5
+  http: ^1.2.2
+  fl_chart: ^1.1.1
+  fluttertoast: ^9.0.0
+  intl: ^0.20.2
+  provider: ^6.1.2
+  shared_preferences: ^2.3.3
+  printing: ^5.13.4
+  pdf: ^3.11.1
+  web: ^1.1.0
+  google_fonts: ^6.1.0
+  open_filex: ^4.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon_heart.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icon_heart.png
+    - assets/fonts/
+
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 700
